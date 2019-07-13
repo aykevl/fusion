@@ -1,6 +1,7 @@
 # IMU sensor fusion algorithms for Go
 
 [![GoDoc](https://godoc.org/github.com/aykevl/fusion?status.svg)](https://godoc.org/github.com/aykevl/fusion)
+[![CircleCI](https://circleci.com/gh/aykevl/fusion.svg?style=svg)](https://circleci.com/gh/aykevl/fusion)
 
 This package implements sensor fusion algorithms for Go. At the moment, the
 following algorithms have been implemented:
