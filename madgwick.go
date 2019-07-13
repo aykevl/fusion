@@ -141,7 +141,7 @@ func (m *Madgwick) Update(gyro, accel mgl32.Vec3, timeDelta time.Duration) {
 	// is essentially just a matrix multiplication.
 	// Reinterpret the resulting gradient (which is a mgl32.Vec4) as a
 	// quaternion for further processing.
-	gradient := vec4ToQuat(j.Mul3x1(f))
+	gradient := j.Mul3x1(f).Quat()
 
 	// The direction of the gyroscope error, see equation 44.
 	directionOfError := gradient.Normalize()
@@ -155,10 +155,4 @@ func (m *Madgwick) Update(gyro, accel mgl32.Vec3, timeDelta time.Duration) {
 	// quaternion causes it to be non-normalized.
 	timeDeltaSec := float32(timeDelta/time.Nanosecond) / 1000000000
 	m.Quat = m.Quat.Add(rateOfChange.Scale(timeDeltaSec)).Normalize()
-}
-
-// vec4ToQuat reinterprets a 4-element vector as a quaternion. It is a no-op
-// change.
-func vec4ToQuat(v mgl32.Vec4) mgl32.Quat {
-	return mgl32.Quat{v.W(), mgl32.Vec3{v.X(), v.Y(), v.Z()}}
 }
